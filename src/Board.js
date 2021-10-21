@@ -11,7 +11,7 @@ class Board extends Component {
 
   state = {
     hasWon: false,
-    board: this.createBoard()
+    board: this.createBoard(),
   }
 
   createBoard() {
@@ -27,6 +27,19 @@ class Board extends Component {
     return board
   }
 
+  renderBoard() {
+    let tblBoard = [];
+
+    for(let y = 0; y < this.props.nrows; y++) {
+      let row = [];
+      for(let x = 0; x < this.props.ncols; x++) {
+        row.push(<Cell isLit={this.state.board[y][x]}/>)
+      }
+      tblBoard.push(<tr>{row}</tr>)
+    }
+    return tblBoard;
+  }
+  
   flipCellsAround(coord) {
     let {ncols, nrows} = this.props;
     let board = this.state.board;
@@ -43,7 +56,11 @@ class Board extends Component {
   render() {
     return(
       <div className="Board">
-        <h1> Board </h1>
+        <table className="Board">
+          <tbody>
+            {this.renderBoard()}
+          </tbody>
+        </table>
       </div>
     )
   }
