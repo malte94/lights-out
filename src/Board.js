@@ -4,8 +4,8 @@ import Cell from "./Cell";
 class Board extends Component {
 
   static defaultProps = {
-    nrows: 3,
-    ncols: 3,
+    nrows: 5,
+    ncols: 5,
     chanceLightStartsOn: 0.25
   }
 
@@ -29,13 +29,18 @@ class Board extends Component {
 
   renderBoard() {
     let tblBoard = [];
-
     for(let y = 0; y < this.props.nrows; y++) {
       let row = [];
       for(let x = 0; x < this.props.ncols; x++) {
-        row.push(<Cell isLit={this.state.board[y][x]}/>)
+        let coord = `${y}-${x}`;
+        row.push(
+        <Cell 
+          key={coord} 
+          isLit={this.state.board[y][x]}
+          flipCellsAroundMe={() => this.flipCellsAround(coord)}
+        />)
       }
-      tblBoard.push(<tr>{row}</tr>)
+      tblBoard.push(<tr key={y}>{row}</tr>)
     }
     return tblBoard;
   }
@@ -51,6 +56,20 @@ class Board extends Component {
         board[y][x] = !board[y][x];
       }
     }
+
+    // Flipping Logic for the neighbours
+
+    flipCell(y, x);
+    flipCell(y, x - 1);
+    flipCell(y, x + 1);
+    flipCell(y - 1, x);
+    flipCell(y + 1, x);
+
+
+    let hasWon = false;
+
+    this.setState({board: board, hasWon: hasWon});
+
   }
 
   render() {
