@@ -22,7 +22,7 @@ body {
   font-family: neon;
   display: inline;
   color: #FB4264;
-  font-size: calc(24px + 4vw);
+  font-size: calc(32px + 4vw);
   text-shadow: 0 0 3vw #F40A35;
   animation: neon 1s ease infinite;
   -moz-animation: neon 1s ease infinite;
@@ -33,7 +33,7 @@ body {
   font-family: neon;
   display: inline;
   color: #426DFB;
-  font-size: calc(24px + 4vw);
+  font-size: calc(32px + 4vw);
   text-shadow: 0 0 3vw #2356FF;
   animation: flux 2s linear infinite;
   -moz-animation: flux 2s linear infinite;
