@@ -3,7 +3,7 @@ import Cell from "./Cell";
 
 function Board(props) {
 
-  const [rerender, setRerender] = useState(false);
+  const [rerender, reRender] = useState(false);
   const [hasWon, setHasWon] = useState(false);
   let chanceLightStartsOn = 0.25;
 
@@ -17,7 +17,7 @@ function Board(props) {
       }
       board.push(row);
     }
-    console.log(board); 
+    console.log(board);
     return board
   }
 
@@ -38,10 +38,11 @@ function Board(props) {
       }
       tblBoard.push(<tr key={y}>{row}</tr>)
     }
+
     return tblBoard;
   }
   
-  const flipCellsAround = (coord) => {
+  const flipCellsAround = async (coord) => {
     console.log("Clicked: " + coord)
     let tmpBoard = board;
     let [y, x] = coord.split("-").map(Number);
@@ -61,23 +62,34 @@ function Board(props) {
     flipCell(y - 1, x);
     flipCell(y + 1, x);
 
-    setHasWon(false);
-
     console.log(board);
 
-    setBoard(board, tmpBoard); setRerender(!rerender);
+    await setBoard(tmpBoard); reRender(!rerender);
+
+    if (board.every(row => row.every(cell => !cell))) {
+      setHasWon(true);
+    }
 
   }
 
   return(
     <div className="Board">
       <table className="Board">
+        {hasWon == false &&
         <tbody>
           {renderBoard()}
         </tbody>
+        }
       </table>
+      {hasWon == true &&
+        <div>
+          <h1>You Win!</h1>
+          <p>Press F5 to reload.</p>
+        </div>
+      }
     </div>
   )
+
 }
 
 export default Board;
