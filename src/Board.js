@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import Cell from "./Cell";
 
 function Board(props) {
@@ -75,13 +75,13 @@ function Board(props) {
   return(
     <div className="Board">
       <table className="Board">
-        {hasWon == false &&
+        {hasWon === false &&
         <tbody>
           {renderBoard()}
         </tbody>
         }
       </table>
-      {hasWon == true &&
+      {hasWon === true &&
         <div>
           <h1>You Win!</h1>
           <p>Press F5 to reload.</p>
