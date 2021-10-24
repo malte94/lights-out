@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import Cell from "./Cell";
 
-function Board(props) {
+export default function Board(props) {
 
   const [rerender, reRender] = useState(false);
   const [hasWon, setHasWon] = useState(false);
@@ -64,7 +64,7 @@ function Board(props) {
 
     console.log(board);
 
-    await setBoard(tmpBoard); reRender(!rerender);
+    setBoard(tmpBoard); reRender(!rerender);
 
     if (board.every(row => row.every(cell => !cell))) {
       setHasWon(true);
@@ -91,5 +91,3 @@ function Board(props) {
   )
 
 }
-
-export default Board;
