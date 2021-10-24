@@ -6,8 +6,8 @@ class App extends Component {
   render() {
     return (
       <div className='App'>
-        <div class="neon">Lights</div>
-        <div class="flux">Out!</div>
+        <div className="neon">Lights</div>
+        <div className="flux">Out!</div>
         <Board nrows="5" ncols="5" />
       </div>
     );
