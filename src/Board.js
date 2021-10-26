@@ -42,7 +42,7 @@ export default function Board(props) {
     return tblBoard;
   }
   
-  const flipCellsAround = async (coord) => {
+  const flipCellsAround = (coord) => {
     console.log("Clicked: " + coord)
     let tmpBoard = board;
     let [y, x] = coord.split("-").map(Number);

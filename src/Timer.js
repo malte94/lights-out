@@ -1,21 +1,21 @@
 import React, {useState, useEffect} from 'react';
 
-const Timer = (props) => {
+export default function Timer(){
     const [timer, setTimer] = useState(0);
 
     useEffect(() => {
-    let interval;
+    let interval = null;
     interval = setInterval(() => {
-        setTimer(timer + 1);
-        }, 10);
-
+        setTimer((timer) => timer + 1);
+      }, 1000);
+      return () => {
+        clearInterval(interval);
+      };
     })
 
     return (
         <div className="Timer">
-            <span>{("0" + Math.floor((timer / 60000) % 60)).slice(-2)}</span>
+            <span>Verstrichen: {timer}</span>
         </div>
     )
 }
-
-export default Timer
