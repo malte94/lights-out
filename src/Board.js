@@ -1,27 +1,27 @@
-import React, {useState} from "react";
+import React from "react";
 import Cell from "./Cell";
+import {useState} from "@hookstate/core";
 
 export default function Board(props) {
 
-  const [rerender, reRender] = useState(false);
-  const [hasWon, setHasWon] = useState(false);
+  const hasWon = useState(false);
   let chanceLightStartsOn = 0.25;
 
   const createBoard = () => {
-    let board = [];
+    let crtBoard = [];
     for (let y = 0; y < props.nrows; y++) {
       let row = [];
       for (let x = 0; x < props.ncols; x++) {
         row.push(Math.random() < chanceLightStartsOn) 
         // returns true or false if Math.Random() generated a number less or higher than chanceLightStartsOn
       }
-      board.push(row);
+      crtBoard.push(row);
     }
-    console.log(board);
-    return board
+    console.log(crtBoard);
+    return crtBoard;
   }
 
-  const [board, setBoard] = useState(createBoard());
+  const board = useState(createBoard());
 
   const renderBoard = () => {
     let tblBoard = [];
@@ -32,7 +32,7 @@ export default function Board(props) {
         row.push(
         <Cell 
           key={coord} 
-          isLit={board[y][x]}
+          isLit={board[y][x].value}
           flipCellsAroundMe={() => flipCellsAround(coord)}
         />)
       }
@@ -44,7 +44,7 @@ export default function Board(props) {
   
   const flipCellsAround = (coord) => {
     console.log("Clicked: " + coord)
-    let tmpBoard = board;
+    let tmpBoard = board.get();
     let [y, x] = coord.split("-").map(Number);
     console.log("y: " + y + " x: " + x);
 
@@ -64,10 +64,10 @@ export default function Board(props) {
 
     console.log(board);
 
-    setBoard(tmpBoard); reRender(!rerender);
+    board.set(tmpBoard);
 
     if (board.every(row => row.every(cell => !cell))) {
-      setHasWon(true);
+      hasWon.set(true);
     }
 
   }
@@ -75,13 +75,13 @@ export default function Board(props) {
   return(
     <div className="Board">
       <table className="Board">
-        {hasWon === false &&
+        {hasWon.get() === false &&
         <tbody>
           {renderBoard()}
         </tbody>
         }
       </table>
-      {hasWon === true &&
+      {hasWon.get() === true &&
         <div>
           <h1>You Win!</h1>
           <p>Press F5 to reload.</p>

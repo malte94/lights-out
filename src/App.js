@@ -10,7 +10,6 @@ class App extends Component {
         <div className="neon">Lights</div>
         <div className="flux">Out!</div>
         <Board nrows="5" ncols="5" />
-        <Timer />
       </div>
     );
   }
